@@ -1,0 +1,5 @@
+name: Publication Date Setup
+type: module
+description: This is to change the publication date based on the update made by editor.
+package: Custom
+core_version_requirement: ^9 || ^10

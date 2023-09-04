@@ -1,0 +1,25 @@
+uuid: 6dd7be76-24e0-414a-85c0-6fa332c9590d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.news
+  module:
+    - field_permissions
+    - node
+    - system
+id: reporter
+label: Reporter
+weight: 4
+is_admin: null
+permissions:
+  - 'access content'
+  - 'create body'
+  - 'create field_news_image'
+  - 'create field_news_tags'
+  - 'create news content'
+  - 'edit own body'
+  - 'edit own field_news_image'
+  - 'edit own field_news_tags'
+  - 'edit own news content'
+  - 'view own unpublished content'

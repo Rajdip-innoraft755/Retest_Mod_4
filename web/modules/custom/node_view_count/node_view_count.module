@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Node View Count module.
+ */
+
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_node_view().
+ */
+function node_view_count_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  // Fetch the user id of current user.
+  $uid = Drupal::currentUser()->id();
+
+  // Load the User Entity of current user.
+  $account = User::load($uid);
+
+  // Fetch the roles of the cuurent user.
+  $roles = $account->getRoles();
+
+  // 1) checks wheter the entity is of node is of news bundle,
+  // 2) the view mode of the entity is full content,
+  // 3) the current user is anonymous or not.
+  if ($entity->bundle() == 'news' && $view_mode == 'full' && in_array('anonymous', $roles)) {
+    $node = Node::load($entity->id());
+
+    // Retreive the view count of the node.
+    $view_count = $node->field_view_count->value;
+
+    // Update the view count.
+    $node->set('field_view_count', $view_count + 1);
+    $node->save();
+
+    // Invalidate the cachetag of this node to update the view.
+    Cache::invalidateTags(['node:' . $node->id()]);
+  }
+}
