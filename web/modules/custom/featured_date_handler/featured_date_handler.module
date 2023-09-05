@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Featured Date Handler module.
+ */
+
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_entity_update().
+ */
+function featured_date_handler_node_update(EntityInterface $entity) {
+  // Fetch the user id of current user.
+  $uid = Drupal::currentUser()->id();
+
+  // Load the User Entity of current user.
+  $account = User::load($uid);
+
+  // Fetch the roles of the cuurent user.
+  $roles = $account->getRoles();
+
+  // Checks whether the entity is previously created and of news type.
+  if ($entity->bundle() == 'news' && !$entity->isNew()) {
+    // The status of the of node feature before update.
+    $previous_state = $entity->original->field_featured->value;
+
+    // The status of the node feature after  update.
+    $current_state = $entity->field_featured->value;
+
+    // 1) checks wheter the node is previously featured or not.
+    // 2) the node is make featured by now,
+    // 3) the current user is editor or not.
+    $node = Node::load($entity->id());
+    if ($previous_state == 0 && $current_state == 1 && in_array('editor', $roles)) {
+
+      // Set the cuurent time if the node is pusblished by the editor.
+      $now = DrupalDateTime::createFromTimestamp(time());
+      $now->setTimezone(new \DateTimeZone('UTC'));
+      $node->set('field_featured_date', $now->format('Y-m-d'));
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function featured_date_handler_cron() {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'news', '=')
+    ->accessCheck(TRUE);
+  $nids = $query->execute();
+
+  foreach ($nids as $nid) {
+    $node = Node::load($nid);
+
+    if ($node->field_featured->value && $node->field_featured_date) {
+      $featured_date = strtotime($node->field_featured_date->value);
+      $seven_days_ago = strtotime('-7 days');
+
+      // Checks whether the featured date is before seven days from
+      // current date or not.
+      if ($featured_date <= $seven_days_ago) {
+        $node->set('field_featured', 0);
+        $node->save();
+      }
+    }
+  }
+}

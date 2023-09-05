@@ -1,0 +1,4 @@
+services:
+  custom_api.api_builder:
+    class: Drupal\custom_api\ApiBuilder
+    arguments: ['@entity_type.manager']

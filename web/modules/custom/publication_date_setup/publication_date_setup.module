@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Publication Date Aetup module.
+ */
+
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_entity_update().
+ */
+function publication_date_setup_node_update(EntityInterface $entity) {
+  // Fetch the user id of current user.
+  $uid = Drupal::currentUser()->id();
+
+  // Load the User Entity of current user.
+  $account = User::load($uid);
+
+  // Fetch the roles of the cuurent user.
+  $roles = $account->getRoles();
+
+  // Checks whether the entity is previously created and of news type.
+  if ($entity->bundle() == 'news' && !$entity->isNew()) {
+    // The status of the of node before update.
+    $previous_state = $entity->original->status->value;
+
+    // The status of the node after update.
+    $cuurent_state = $entity->status->value;
+
+    // 1) checks wheter the node is previously unpublished or not.
+    // 2) the node is make pusblished by now,
+    // 3) the current user is editor or not.
+    if ($previous_state == 0 && $cuurent_state == 1 && in_array('editor', $roles)) {
+      $node = Node::load($entity->id());
+
+      // Set the cuurent time if the node is pusblished by the editor.
+      $now = DrupalDateTime::createFromTimestamp(time());
+      $now->setTimezone(new \DateTimeZone('UTC'));
+      $node->set('field_publication_date', $now->format('Y-m-d\TH:i:s'));
+      $node->save();
+    }
+  }
+}

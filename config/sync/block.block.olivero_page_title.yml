@@ -2,6 +2,8 @@ uuid: d070ef76-dd95-45de-8e2a-263c6f25063c
 langcode: en
 status: true
 dependencies:
+  module:
+    - system
   theme:
     - olivero
 _core:
@@ -17,4 +19,8 @@ settings:
   label: 'Page title'
   label_display: '0'
   provider: core
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: /home

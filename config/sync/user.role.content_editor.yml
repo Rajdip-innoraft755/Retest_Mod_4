@@ -9,6 +9,7 @@ dependencies:
   module:
     - comment
     - contextual
+    - field_permissions
     - file
     - node
     - path
@@ -41,9 +42,9 @@ permissions:
   - 'delete page revisions'
   - 'edit own article content'
   - 'edit own comments'
+  - 'edit own field_news_image'
   - 'edit own page content'
   - 'edit terms in tags'
   - 'revert all revisions'
   - 'view all revisions'
-  - 'view own unpublished content'
   - 'view the administration theme'

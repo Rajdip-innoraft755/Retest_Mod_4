@@ -1,0 +1,5 @@
+name: Featured Date Handler
+type: module
+description: This module is to manage the featured date of a news.
+package: Custom
+core_version_requirement: ^9 || ^10

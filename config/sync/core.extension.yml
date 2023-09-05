@@ -1,6 +1,10 @@
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
+  admin_toolbar: 0
+  admin_toolbar_links_access_filter: 0
+  admin_toolbar_search: 0
+  admin_toolbar_tools: 0
   automated_cron: 0
   big_pipe: 0
   block: 0
@@ -11,11 +15,16 @@ module:
   config: 0
   contact: 0
   contextual: 0
+  custom_api: 0
   datetime: 0
   dblog: 0
+  devel: 0
+  devel_generate: 0
   dynamic_page_cache: 0
   editor: 0
+  featured_date_handler: 0
   field: 0
+  field_permissions: 0
   field_ui: 0
   file: 0
   filter: 0
@@ -27,21 +36,49 @@ module:
   menu_ui: 0
   mysql: 0
   node: 0
+  node_title_validation: 0
+  node_view_count: 0
   options: 0
   page_cache: 0
   path: 0
   path_alias: 0
+  publication_date_setup: 0
+  published_corrected_date: 0
   search: 0
   shortcut: 0
+  smtp: 0
   standard: 0
   system: 0
   taxonomy: 0
+  taxonomy_unique: 0
   text: 0
+  token: 0
   toolbar: 0
   tour: 0
+  unique_entity_title: 0
   user: 0
+  view_unpublished: 0
   views_ui: 0
+  webform: 0
+  webform_access: 0
+  webform_attachment: 0
+  webform_devel: 0
+  webform_image_select: 0
+  webform_node: 0
+  webform_options_custom: 0
+  webform_options_limit: 0
+  webform_scheduled_email: 0
+  webform_schema: 0
+  webform_share: 0
+  webform_shortcuts: 0
+  webform_submission_export_import: 0
+  webform_submission_log: 0
+  webform_templates: 0
+  webform_ui: 0
+  pathauto: 1
+  webform_bootstrap: 1
   views: 10
+  login_redirect_per_role: 1000
 theme:
   olivero: 0
   claro: 0
