@@ -24,6 +24,7 @@ permissions:
   - 'search content'
   - 'use text format restricted_html'
   - 'view body'
+  - 'view field_featured'
   - 'view field_news_image'
   - 'view field_news_tags'
   - 'view field_publication_date'

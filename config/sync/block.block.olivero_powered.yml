@@ -16,7 +16,11 @@ provider: null
 plugin: system_powered_by_block
 settings:
   id: system_powered_by_block
-  label: 'Powered by Drupal'
-  label_display: '0'
+  label: 'Copyright Reserved To Innoraft'
+  label_display: visible
   provider: system
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /home

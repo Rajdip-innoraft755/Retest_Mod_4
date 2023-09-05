@@ -32,6 +32,8 @@ permissions:
   - 'use text format basic_html'
   - 'use text format webform_default'
   - 'view body'
+  - 'view field_featured'
+  - 'view field_featured_date'
   - 'view field_news_image'
   - 'view field_news_tags'
   - 'view field_publication_date'

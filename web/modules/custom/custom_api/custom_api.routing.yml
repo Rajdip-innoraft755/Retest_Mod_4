@@ -1,0 +1,7 @@
+custom_api.data_fetch:
+  path: '/custom-api'
+  defaults:
+    _title: 'Custom API'
+    _controller: '\Drupal\custom_api\Controller\CustomApiController::buildResult'
+  requirements:
+    _permission: 'access content'

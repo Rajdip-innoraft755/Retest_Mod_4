@@ -5,6 +5,7 @@ dependencies:
   config:
     - node.type.news
   module:
+    - field_permissions
     - node
     - system
 id: editor
@@ -15,4 +16,5 @@ permissions:
   - 'access content'
   - 'administer nodes'
   - 'edit any news content'
+  - 'edit field_featured'
   - 'view news revisions'
